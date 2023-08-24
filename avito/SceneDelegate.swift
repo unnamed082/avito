@@ -19,10 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
 
-        var flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
-
-        window.rootViewController = AnnouncementViewController(collectionViewLayout: flowLayout)
+        window.rootViewController = AnnouncementViewController()
         self.window = window
         window.makeKeyAndVisible()
     }
