@@ -9,19 +9,21 @@
 /* Begin PBXBuildFile section */
 		1A963D132A97CE3A0061A599 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D122A97CE3A0061A599 /* AppDelegate.swift */; };
 		1A963D152A97CE3A0061A599 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D142A97CE3A0061A599 /* SceneDelegate.swift */; };
-		1A963D172A97CE3A0061A599 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D162A97CE3A0061A599 /* ViewController.swift */; };
 		1A963D1C2A97CE3B0061A599 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A963D1B2A97CE3B0061A599 /* Assets.xcassets */; };
 		1A963D1F2A97CE3B0061A599 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A963D1D2A97CE3B0061A599 /* LaunchScreen.storyboard */; };
+		1A963D282A97E3B20061A599 /* AnnouncementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D272A97E3B20061A599 /* AnnouncementViewController.swift */; };
+		1A963D2B2A97E5930061A599 /* AnnouncementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D2A2A97E5930061A599 /* AnnouncementCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1A963D0F2A97CE3A0061A599 /* avito.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = avito.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A963D122A97CE3A0061A599 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A963D142A97CE3A0061A599 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1A963D162A97CE3A0061A599 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1A963D1B2A97CE3B0061A599 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A963D1E2A97CE3B0061A599 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1A963D202A97CE3B0061A599 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A963D272A97E3B20061A599 /* AnnouncementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementViewController.swift; sourceTree = "<group>"; };
+		1A963D2A2A97E5930061A599 /* AnnouncementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,12 +56,13 @@
 		1A963D112A97CE3A0061A599 /* avito */ = {
 			isa = PBXGroup;
 			children = (
+				1A963D272A97E3B20061A599 /* AnnouncementViewController.swift */,
 				1A963D122A97CE3A0061A599 /* AppDelegate.swift */,
 				1A963D142A97CE3A0061A599 /* SceneDelegate.swift */,
-				1A963D162A97CE3A0061A599 /* ViewController.swift */,
 				1A963D1B2A97CE3B0061A599 /* Assets.xcassets */,
 				1A963D1D2A97CE3B0061A599 /* LaunchScreen.storyboard */,
 				1A963D202A97CE3B0061A599 /* Info.plist */,
+				1A963D2A2A97E5930061A599 /* AnnouncementCell.swift */,
 			);
 			path = avito;
 			sourceTree = "<group>";
@@ -134,8 +137,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A963D172A97CE3A0061A599 /* ViewController.swift in Sources */,
+				1A963D2B2A97E5930061A599 /* AnnouncementCell.swift in Sources */,
 				1A963D132A97CE3A0061A599 /* AppDelegate.swift in Sources */,
+				1A963D282A97E3B20061A599 /* AnnouncementViewController.swift in Sources */,
 				1A963D152A97CE3A0061A599 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
