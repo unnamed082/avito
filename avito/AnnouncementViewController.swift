@@ -17,11 +17,13 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
     private var advertisements : [Advertisement] = []
 
     //Mark:  ctor
+
     init() {
-        var collectionViewLayout = UICollectionViewFlowLayout()
+        let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.scrollDirection = .vertical
         collectionViewLayout.minimumLineSpacing = 10
         collectionViewLayout.minimumInteritemSpacing = 10
+        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
 
         super.init(collectionViewLayout: collectionViewLayout)
     }
@@ -49,7 +51,6 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
             self.advertisements = advertisements.advertisements
 
             DispatchQueue.main.async {
-//                self.refreshControl.endRefreshing()
                 self.collectionView.reloadData()
             }
         }
@@ -62,6 +63,7 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
     }
 
     //Mark: Source, Delegate, FlowLayout
+
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -70,19 +72,32 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
         return advertisements.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let space = (collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing ?? 0.0
-
-        let itemWidth = (collectionView.frame.size.width - space) / 2.0
-        let itemHeight = itemWidth * 1.6
-
-        return CGSize(width: itemWidth, height: itemHeight) // todo сделать обсчет высоты конкретного элемента
-    }
-
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // Инициализируем ячейку
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AnnouncementCell
 
+        cell.setData(adv: advertisements[indexPath.row],
+        imageDataUploaded: { imageData in
+            self.advertisements[indexPath.row].imageData = imageData
+        })
         return cell
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // todo show second VC
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout
+
+        let space = flowLayout?.minimumInteritemSpacing ?? 0.0
+
+        let sectionInsets = flowLayout?.sectionInset ?? UIEdgeInsets.zero
+        let horMargins = sectionInsets.left + sectionInsets.right
+
+        let itemWidth = (collectionView.frame.size.width - space - horMargins) / 2.0
+        let itemHeight = itemWidth * 1.6
+
+        return CGSize(width: itemWidth, height: itemHeight)
     }
 }

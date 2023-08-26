@@ -14,7 +14,7 @@
 		1A963D282A97E3B20061A599 /* AnnouncementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D272A97E3B20061A599 /* AnnouncementViewController.swift */; };
 		1A963D2B2A97E5930061A599 /* AnnouncementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D2A2A97E5930061A599 /* AnnouncementCell.swift */; };
 		1A963D2D2A9A21650061A599 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D2C2A9A21650061A599 /* NetworkService.swift */; };
-		1A963D302A9A21BC0061A599 /* AnnouncementList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D2F2A9A21BC0061A599 /* AnnouncementList.swift */; };
+		1A963D302A9A21BC0061A599 /* AdvertisementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D2F2A9A21BC0061A599 /* AdvertisementModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 		1A963D272A97E3B20061A599 /* AnnouncementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementViewController.swift; sourceTree = "<group>"; };
 		1A963D2A2A97E5930061A599 /* AnnouncementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementCell.swift; sourceTree = "<group>"; };
 		1A963D2C2A9A21650061A599 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		1A963D2F2A9A21BC0061A599 /* AnnouncementList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementList.swift; sourceTree = "<group>"; };
+		1A963D2F2A9A21BC0061A599 /* AdvertisementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +68,7 @@
 				1A963D202A97CE3B0061A599 /* Info.plist */,
 				1A963D2A2A97E5930061A599 /* AnnouncementCell.swift */,
 				1A963D2C2A9A21650061A599 /* NetworkService.swift */,
-				1A963D2F2A9A21BC0061A599 /* AnnouncementList.swift */,
+				1A963D2F2A9A21BC0061A599 /* AdvertisementModel.swift */,
 			);
 			path = avito;
 			sourceTree = "<group>";
@@ -143,7 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A963D302A9A21BC0061A599 /* AnnouncementList.swift in Sources */,
+				1A963D302A9A21BC0061A599 /* AdvertisementModel.swift in Sources */,
 				1A963D2D2A9A21650061A599 /* NetworkService.swift in Sources */,
 				1A963D2B2A97E5930061A599 /* AnnouncementCell.swift in Sources */,
 				1A963D132A97CE3A0061A599 /* AppDelegate.swift in Sources */,
