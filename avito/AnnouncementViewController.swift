@@ -12,8 +12,11 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
 
     private let reuseIdentifier = "Cell"
 
-    var allPhotos : [String] = []
+    private var needUpdateData : Bool = true
 
+    private var advertisements : [Advertisement] = []
+
+    //Mark:  ctor
     init() {
         var collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.scrollDirection = .vertical
@@ -31,33 +34,54 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
         super.viewDidLoad()
 
         self.collectionView!.register(AnnouncementCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        allPhotos = ["sw_1", "sw_2", "sw_3", "sw_4", "sw_5", "sw_6", "sw_7", "sw_8", "sw_9", "sw_10", "sw_11", "sw_12", "sw_13", "sw_14", "sw_15", "sw_16"]
     }
 
+    //Mark: base func
+
+    override func viewWillAppear(_ animated: Bool) {
+        if (needUpdateData) {
+            updateData()
+        }
+    }
+
+    private func updateData() {
+        loadData { advertisements in
+            self.advertisements = advertisements.advertisements
+
+            DispatchQueue.main.async {
+//                self.refreshControl.endRefreshing()
+                self.collectionView.reloadData()
+            }
+        }
+    }
+
+    private func loadData(completion: @escaping(Advertisements) -> Void) {
+        NetworkService().downloadAdvertisements(completion: { advertisements in
+            completion(advertisements)
+        })
+    }
+
+    //Mark: Source, Delegate, FlowLayout
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allPhotos.count
+        return advertisements.count
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout
-
-        let space = flowLayout?.minimumInteritemSpacing ?? 0.0
+        let space = (collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing ?? 0.0
 
         let itemWidth = (collectionView.frame.size.width - space) / 2.0
+        let itemHeight = itemWidth * 1.6
 
-        return CGSize(width: itemWidth, height: itemWidth * 1.5) // todo сделать обсчет высоты конкретного элемента
+        return CGSize(width: itemWidth, height: itemHeight) // todo сделать обсчет высоты конкретного элемента
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Инициализируем ячейку
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AnnouncementCell
-
-        let text = allPhotos[indexPath.item]
 
         return cell
     }
