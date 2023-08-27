@@ -63,6 +63,8 @@ class AnnouncementCell: UICollectionViewCell {
         return label
     }()
 
+    public var showError : ((String) -> Void)?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -116,8 +118,19 @@ class AnnouncementCell: UICollectionViewCell {
                     DispatchQueue.main.async {
                         imageDataUploaded(data)
                     }
+                    break
                 case .failure(let error):
-                    // todo
+                    DispatchQueue.main.async {
+                        var message = ""
+                        if let error = error as? LocalizedError {
+                            message = error.errorDescription!
+                        }
+                        else {
+                            message = error.localizedDescription
+                        }
+
+                        self.showError?(message)
+                    }
                     break
                 }
             })

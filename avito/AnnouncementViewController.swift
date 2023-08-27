@@ -140,6 +140,9 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AnnouncementCell
         cell.tag = indexPath.row
+        cell.showError = { message in
+            self.showAlert(message: message)
+        }
 
         cell.setData(adv: advertisements[indexPath.row],
                      imageDataUploaded: { imageData in
