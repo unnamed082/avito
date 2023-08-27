@@ -16,6 +16,22 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
 
     private var advertisements : [Advertisement] = []
 
+    private var loaderViewBackgroundView : UIView = {
+        var view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 10
+        view.isHidden = true
+        return view
+    }()
+
+    private var loaderView : UIActivityIndicatorView = {
+        var loaderView = UIActivityIndicatorView(style: .medium)
+        loaderView.sizeToFit()
+        loaderView.translatesAutoresizingMaskIntoConstraints = false
+        return loaderView
+    }()
+
     //Mark:  ctor
 
     init() {
@@ -36,6 +52,20 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
         super.viewDidLoad()
 
         self.collectionView!.register(AnnouncementCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+
+        loaderViewBackgroundView.addSubview(loaderView)
+        view.addSubview(loaderViewBackgroundView)
+
+        let loaderBgViewPadding: CGFloat = 10
+        NSLayoutConstraint.activate([
+            loaderViewBackgroundView.widthAnchor.constraint(equalToConstant: loaderView.frame.width + loaderBgViewPadding * 2),
+            loaderViewBackgroundView.heightAnchor.constraint(equalToConstant: loaderView.frame.height + loaderBgViewPadding * 2),
+            loaderViewBackgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loaderViewBackgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+
+            loaderView.centerXAnchor.constraint(equalTo: loaderViewBackgroundView.centerXAnchor),
+            loaderView.centerYAnchor.constraint(equalTo: loaderViewBackgroundView.centerYAnchor)
+        ])
     }
 
     //Mark: base func
@@ -47,10 +77,13 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
     }
 
     private func updateData() {
+        showLoader()
+        
         loadData { advertisements in
             self.advertisements = advertisements.advertisements
 
             DispatchQueue.main.async {
+                self.hideLoader()
                 self.collectionView.reloadData()
             }
         }
@@ -60,6 +93,16 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
         NetworkService().downloadAdvertisements(completion: { advertisements in
             completion(advertisements)
         })
+    }
+
+    private func showLoader() {
+        loaderViewBackgroundView.isHidden = false
+        loaderView.startAnimating()
+    }
+
+    private func hideLoader() {
+        loaderViewBackgroundView.isHidden = true
+        loaderView.stopAnimating()
     }
 
     //Mark: Source, Delegate, FlowLayout
@@ -74,10 +117,15 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AnnouncementCell
+        cell.tag = indexPath.row
 
         cell.setData(adv: advertisements[indexPath.row],
-        imageDataUploaded: { imageData in
+                     imageDataUploaded: { imageData in
             self.advertisements[indexPath.row].imageData = imageData
+
+            if (cell.tag == indexPath.row) {
+                cell.setImage(data: imageData)
+            }
         })
         return cell
     }

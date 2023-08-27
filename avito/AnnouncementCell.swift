@@ -62,8 +62,6 @@ class AnnouncementCell: UICollectionViewCell {
         return label
     }()
 
-    private var loadingImageUrl : String = ""
-
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -95,27 +93,23 @@ class AnnouncementCell: UICollectionViewCell {
         ])
     }
 
-    override func prepareForReuse() {
-        loadingImageUrl = ""
+    func setImage(data : Data) {
+        imageView.image = UIImage(data: data)
+        // todo изображение не обрезается
     }
 
     func setData(adv: Advertisement, imageDataUploaded: @escaping(Data) -> Void)
     {
-        loadingImageUrl = adv.imageURL
-
         if let imageData = adv.imageData {
-            imageView.image = UIImage(data: imageData)
+            setImage(data: imageData)
         }
         else
         {
             NetworkService().downloadImage(from: URL(string: adv.imageURL)!, completion: { imageData in
                 DispatchQueue.main.async {
                     imageDataUploaded(imageData)
-
-                    if (self.loadingImageUrl == adv.imageURL) {
-                        self.imageView.image = UIImage(data: imageData)
-                    }
                 }
+
             })
         }
 
