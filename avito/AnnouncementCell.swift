@@ -100,6 +100,18 @@ class AnnouncementCell: UICollectionViewCell {
         imageView.image = nil
     }
 
+    private func convertDate(dateString : String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
+        let date = dateFormatter.date(from: dateString)!
+
+        dateFormatter.dateFormat = "d MMM"
+
+        return dateFormatter.string(from: date)
+    }
+
     func setImage(data : Data) {
         imageView.image = UIImage(data: data)
     }
@@ -137,14 +149,14 @@ class AnnouncementCell: UICollectionViewCell {
         }
 
         titleLabel.text = adv.title
-        priceLabel.text = adv.price
 
+        priceLabel.text = adv.price
         priceLabel.isHidden = priceLabel.text?.isEmpty ?? true
 
         locationLabel.text = adv.location
         locationLabel.isHidden = locationLabel.text?.isEmpty ?? true
 
-        createdDateLabel.text = adv.createdDate // todo convert date time format
+        createdDateLabel.text = convertDate(dateString: adv.createdDate)
         createdDateLabel.isHidden = createdDateLabel.text?.isEmpty ?? true
     }
 }
