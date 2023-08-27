@@ -12,9 +12,10 @@ class AnnouncementCell: UICollectionViewCell {
 
     private var imageView : UIImageView = {
         var imageView = UIImageView()
-        imageView.layer.cornerRadius = 10
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = UIColor(red: 215/255, green: 222/255, blue: 230/255, alpha: 1)
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 10
         return imageView
     }()
 
@@ -93,9 +94,12 @@ class AnnouncementCell: UICollectionViewCell {
         ])
     }
 
+    override func prepareForReuse() {
+        imageView.image = nil
+    }
+
     func setImage(data : Data) {
         imageView.image = UIImage(data: data)
-        // todo изображение не обрезается
     }
 
     func setData(adv: Advertisement, imageDataUploaded: @escaping(Data) -> Void)
