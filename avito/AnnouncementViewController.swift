@@ -78,7 +78,7 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
 
     private func updateData() {
         showLoader()
-        
+
         loadData { advertisements in
             self.advertisements = advertisements.advertisements
 
@@ -90,9 +90,31 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
     }
 
     private func loadData(completion: @escaping(Advertisements) -> Void) {
-        NetworkService().downloadAdvertisements(completion: { advertisements in
-            completion(advertisements)
+        NetworkService().downloadAdvertisements(completion: { result in
+            switch result {
+            case .success(let data):
+                completion(data)
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    var message = ""
+                    if let error = error as? LocalizedError {
+                        message = error.errorDescription!
+                    }
+                    else {
+                        message = error.localizedDescription
+                    }
+
+                    self.showAlert(message: message)
+                }
+                break
+            }
         })
+    }
+
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 
     private func showLoader() {

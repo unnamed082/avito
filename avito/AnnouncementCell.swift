@@ -105,11 +105,17 @@ class AnnouncementCell: UICollectionViewCell {
         }
         else
         {
-            NetworkService().downloadImage(from: URL(string: adv.imageURL)!, completion: { imageData in
-                DispatchQueue.main.async {
-                    imageDataUploaded(imageData)
+            NetworkService().downloadImage(url: adv.imageURL, completion: {
+                result in
+                switch result {
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        imageDataUploaded(data)
+                    }
+                case .failure(let error):
+                    // todo
+                    break
                 }
-
             })
         }
 
