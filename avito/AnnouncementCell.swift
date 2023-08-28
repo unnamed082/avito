@@ -30,7 +30,7 @@ class AnnouncementCell: UICollectionViewCell {
     private var titleLabel : UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 15)
         label.numberOfLines = 2
         label.textColor = .black
         return label
@@ -39,7 +39,7 @@ class AnnouncementCell: UICollectionViewCell {
     private var priceLabel : UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: 14)
+        label.font = .boldSystemFont(ofSize: 15)
         label.textColor = .black
         label.numberOfLines = 1
         return label
@@ -48,7 +48,7 @@ class AnnouncementCell: UICollectionViewCell {
     private var locationLabel : UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12)
+        label.font = .systemFont(ofSize: 13)
         label.textColor = .gray
         label.numberOfLines = 1
         return label
@@ -57,7 +57,7 @@ class AnnouncementCell: UICollectionViewCell {
     private var createdDateLabel : UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12)
+        label.font = .systemFont(ofSize: 13)
         label.textColor = .gray
         label.numberOfLines = 1
         return label

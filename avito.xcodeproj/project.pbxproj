@@ -15,6 +15,7 @@
 		1A963D2B2A97E5930061A599 /* AnnouncementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D2A2A97E5930061A599 /* AnnouncementCell.swift */; };
 		1A963D2D2A9A21650061A599 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D2C2A9A21650061A599 /* NetworkService.swift */; };
 		1A963D302A9A21BC0061A599 /* AdvertisementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D2F2A9A21BC0061A599 /* AdvertisementModel.swift */; };
+		1A963D322A9BB0CC0061A599 /* DetailedAdvInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D312A9BB0CC0061A599 /* DetailedAdvInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		1A963D2A2A97E5930061A599 /* AnnouncementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementCell.swift; sourceTree = "<group>"; };
 		1A963D2C2A9A21650061A599 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		1A963D2F2A9A21BC0061A599 /* AdvertisementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementModel.swift; sourceTree = "<group>"; };
+		1A963D312A9BB0CC0061A599 /* DetailedAdvInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedAdvInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				1A963D2A2A97E5930061A599 /* AnnouncementCell.swift */,
 				1A963D2C2A9A21650061A599 /* NetworkService.swift */,
 				1A963D2F2A9A21BC0061A599 /* AdvertisementModel.swift */,
+				1A963D312A9BB0CC0061A599 /* DetailedAdvInfoViewController.swift */,
 			);
 			path = avito;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 				1A963D2D2A9A21650061A599 /* NetworkService.swift in Sources */,
 				1A963D2B2A97E5930061A599 /* AnnouncementCell.swift in Sources */,
 				1A963D132A97CE3A0061A599 /* AppDelegate.swift in Sources */,
+				1A963D322A9BB0CC0061A599 /* DetailedAdvInfoViewController.swift in Sources */,
 				1A963D282A97E3B20061A599 /* AnnouncementViewController.swift in Sources */,
 				1A963D152A97CE3A0061A599 /* SceneDelegate.swift in Sources */,
 			);

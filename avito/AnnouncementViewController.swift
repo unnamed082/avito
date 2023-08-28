@@ -71,9 +71,15 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
     //Mark: base func
 
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+
         if (needUpdateData) {
             updateData()
         }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
     private func updateData() {
@@ -156,7 +162,11 @@ class AnnouncementViewController: UICollectionViewController, UICollectionViewDe
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // todo show second VC
+
+        let detailedAdvInfoViewController = DetailedAdvInfoViewController()
+        detailedAdvInfoViewController.setData(advId: advertisements[indexPath.row].id)
+        navigationController?.pushViewController(detailedAdvInfoViewController, animated: true)
+
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

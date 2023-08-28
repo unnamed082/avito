@@ -60,6 +60,26 @@ class NetworkService {
         task.resume()
     }
 
+    func downloadImage(url: String, completion: @escaping(Result<Data, Error>) -> Void) {
+        fetchData(url: url, completion: completion)
+    }
+
+    func downloadAdvertisement(itemId: String, completion: @escaping(Result<Advertisement, Error>) -> Void) {
+        fetchData(url: "https://www.avito.st/s/interns-ios/details/\(itemId).json", completion: { result in
+            switch result {
+            case .success(let data):
+                if let advertisement = try? JSONDecoder().decode(Advertisement.self, from: data) {
+                    completion(.success(advertisement))
+                }
+                else {
+                    completion(.failure(ParseError.invalidData))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        })
+    }
+
     func downloadAdvertisements(completion: @escaping(Result<Advertisements, Error>) -> Void) {
         fetchData(url: "https://www.avito.st/s/interns-ios/main-page.json", completion: { result in
             switch result {
@@ -74,9 +94,5 @@ class NetworkService {
                 completion(.failure(error))
             }
         })
-    }
-
-    func downloadImage(url: String, completion: @escaping(Result<Data, Error>) -> Void) {
-        fetchData(url: url, completion: completion)
     }
 }
