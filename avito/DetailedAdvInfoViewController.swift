@@ -48,6 +48,8 @@ final class DetailedAdvInfoViewController : UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 17)
+        label.textColor = .blue
+        label.isUserInteractionEnabled = true
         return label
     }()
 
@@ -55,6 +57,8 @@ final class DetailedAdvInfoViewController : UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 17)
+        label.textColor = .blue
+        label.isUserInteractionEnabled = true
         return label
     }()
 
@@ -106,8 +110,13 @@ final class DetailedAdvInfoViewController : UIViewController {
         return loaderView
     }()
 
+    var advertisement : Advertisement? = nil
+
     override func viewDidLoad() {
         view.backgroundColor = .white
+
+        emailLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emailClicked(_:))))
+        phoneNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(phoneNumberClicked(_:))))
 
         view.addSubview(scrollView)
 
@@ -254,10 +263,11 @@ final class DetailedAdvInfoViewController : UIViewController {
     }
 
     func setData(advId: String) {
-
         showLoader()
 
         loadAdv(itemId: advId, completion: { advertisement in
+            self.advertisement = advertisement
+
             DispatchQueue.main.async {
                 self.loadImage(url: advertisement.imageURL)
 
@@ -280,5 +290,36 @@ final class DetailedAdvInfoViewController : UIViewController {
                 self.hideLoader()
             }
         })
+    }
+
+    @objc private func emailClicked(_ sender: UITapGestureRecognizer) {
+        if let adv = advertisement,
+           let email = adv.email,
+           let url = URL(string: "mailto://\(email)"),
+           UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+        else {
+            showAlert(message: "Не удалось перейти к отправке сообщения")
+        }
+    }
+
+    @objc private func phoneNumberClicked(_ sender: UITapGestureRecognizer) {
+        if let adv = advertisement,
+           let phoneNumber = adv.phoneNumber {
+
+            let number = phoneNumber.filter{ !($0.isWhitespace || $0 == "(" || $0 == ")" || $0 == "-") }
+            if let url = URL(string: "tel://\(number)"),
+               UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+            else {
+                showAlert(message: "Не удалось выполнить вызов на указанный номер")
+            }
+        }
+        else {
+            showAlert(message: "Не удалось выполнить вызов, так как не указан номер")
+        }
+
     }
 }
