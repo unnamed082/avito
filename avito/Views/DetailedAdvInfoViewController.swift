@@ -8,7 +8,9 @@
 import Foundation
 import UIKit
 
-final class DetailedAdvInfoViewController : UIViewController {
+final class DetailedAdvInfoViewController : BaseViewController {
+
+    var advertisement : Advertisement? = nil
 
     private var scrollView : UIScrollView = {
         var scrollView = UIScrollView()
@@ -18,7 +20,7 @@ final class DetailedAdvInfoViewController : UIViewController {
 
     private var imageView : UIImageView = {
         var imageView = UIImageView()
-        imageView.backgroundColor = UIColor(red: 215/255, green: 222/255, blue: 230/255, alpha: 1)
+        imageView.backgroundColor = .solitude
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -94,31 +96,15 @@ final class DetailedAdvInfoViewController : UIViewController {
         return label
     }()
 
-    private var loaderViewBackgroundView : UIView = {
-        var view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 10
-        view.isHidden = true
-        return view
-    }()
-
-    private var loaderView : UIActivityIndicatorView = {
-        var loaderView = UIActivityIndicatorView(style: .medium)
-        loaderView.sizeToFit()
-        loaderView.translatesAutoresizingMaskIntoConstraints = false
-        return loaderView
-    }()
-
-    var advertisement : Advertisement? = nil
+    // Mark: override base func
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+
         view.backgroundColor = .white
 
         emailLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emailClicked(_:))))
         phoneNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(phoneNumberClicked(_:))))
-
-        view.addSubview(scrollView)
 
         scrollView.addSubview(imageView)
         scrollView.addSubview(titleLabel)
@@ -131,22 +117,12 @@ final class DetailedAdvInfoViewController : UIViewController {
         scrollView.addSubview(idLabel)
         scrollView.addSubview(createdDateLabel)
 
-        loaderViewBackgroundView.addSubview(loaderView)
-        view.addSubview(loaderViewBackgroundView)
+        view.addSubview(scrollView)
 
-        let loaderBgViewPadding: CGFloat = 10
         let imageSize = view.frame.width
         let horPadding : CGFloat = 15
 
         NSLayoutConstraint.activate([
-            loaderViewBackgroundView.widthAnchor.constraint(equalToConstant: loaderView.frame.width + loaderBgViewPadding * 2),
-            loaderViewBackgroundView.heightAnchor.constraint(equalToConstant: loaderView.frame.height + loaderBgViewPadding * 2),
-            loaderViewBackgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loaderViewBackgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-
-            loaderView.centerXAnchor.constraint(equalTo: loaderViewBackgroundView.centerXAnchor),
-            loaderView.centerYAnchor.constraint(equalTo: loaderViewBackgroundView.centerYAnchor),
-
             scrollView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -198,36 +174,28 @@ final class DetailedAdvInfoViewController : UIViewController {
         scrollView.contentSize = CGSize(width: view.frame.width, height: createdDateLabel.frame.maxY)
     }
 
-    private func showLoader() {
-        loaderViewBackgroundView.isHidden = false
-        loaderView.startAnimating()
-    }
+    // Mark: private func
 
-    private func hideLoader() {
-        loaderViewBackgroundView.isHidden = true
-        loaderView.stopAnimating()
-    }
-
-    private func loadImage(url : String) {
+     private func loadImage(url : String) {
         NetworkService().downloadImage(url: url, completion: {
-            result in
+            [weak self] result in
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
-                    self.imageView.image = UIImage(data: data)
+                    self?.imageView.image = UIImage(data: data)
                 }
                 break
             case .failure(let error):
                 DispatchQueue.main.async {
                     var message = ""
                     if let error = error as? LocalizedError {
-                        message = error.errorDescription!
+                        message = error.errorDescription ?? ""
                     }
                     else {
                         message = error.localizedDescription
                     }
 
-                    self.showAlert(message: message)
+                    self?.showAlert(message: message)
                 }
                 break
             }
@@ -235,7 +203,7 @@ final class DetailedAdvInfoViewController : UIViewController {
     }
 
     private func loadAdv(itemId: String, completion: @escaping(Advertisement) -> Void) {
-        NetworkService().downloadAdvertisement(itemId: itemId, completion: { result in
+        NetworkService().downloadAdvertisement(itemId: itemId, completion: { [weak self] result in
             switch result {
             case .success(let data):
                 completion(data)
@@ -243,51 +211,15 @@ final class DetailedAdvInfoViewController : UIViewController {
                 DispatchQueue.main.async {
                     var message = ""
                     if let error = error as? LocalizedError {
-                        message = error.errorDescription!
+                        message = error.errorDescription ?? ""
                     }
                     else {
                         message = error.localizedDescription
                     }
 
-                    self.showAlert(message: message)
+                    self?.showAlert(message: message)
                 }
                 break
-            }
-        })
-    }
-
-    private func showAlert(message: String) {
-        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-
-    func setData(advId: String) {
-        showLoader()
-
-        loadAdv(itemId: advId, completion: { advertisement in
-            self.advertisement = advertisement
-
-            DispatchQueue.main.async {
-                self.loadImage(url: advertisement.imageURL)
-
-                self.titleLabel.text = advertisement.title
-
-                self.priceLabel.text = advertisement.price
-
-                self.locationLabel.text = advertisement.location
-
-                self.emailLabel.text = advertisement.email
-
-                self.phoneNumberLabel.text = advertisement.phoneNumber
-
-                self.descriptionLabel.text = advertisement.description
-
-                self.idLabel.text = "Объявление №\(advertisement.id)"
-
-                self.createdDateLabel.text = advertisement.createdDate
-
-                self.hideLoader()
             }
         })
     }
@@ -320,6 +252,37 @@ final class DetailedAdvInfoViewController : UIViewController {
         else {
             showAlert(message: "Не удалось выполнить вызов, так как не указан номер")
         }
+    }
 
+    // Mark: internal func
+
+    func setData(advId: String) {
+        showLoader()
+
+        loadAdv(itemId: advId, completion: { [weak self] advertisement in
+            self?.advertisement = advertisement
+
+            DispatchQueue.main.async {
+                self?.loadImage(url: advertisement.imageURL)
+
+                self?.titleLabel.text = advertisement.title
+
+                self?.priceLabel.text = advertisement.price
+
+                self?.locationLabel.text = advertisement.location
+
+                self?.emailLabel.text = advertisement.email
+
+                self?.phoneNumberLabel.text = advertisement.phoneNumber
+
+                self?.descriptionLabel.text = advertisement.description
+
+                self?.idLabel.text = "Объявление №\(advertisement.id)"
+
+                self?.createdDateLabel.text = advertisement.createdDate
+
+                self?.hideLoader()
+            }
+        })
     }
 }

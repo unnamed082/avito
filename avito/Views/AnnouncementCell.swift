@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-class AnnouncementCell: UICollectionViewCell {
+final class AnnouncementCell: UICollectionViewCell {
 
     private var imageView : UIImageView = {
         var imageView = UIImageView()
-        imageView.backgroundColor = UIColor(red: 215/255, green: 222/255, blue: 230/255, alpha: 1)
+        imageView.backgroundColor = .solitude
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 10
@@ -63,7 +63,7 @@ class AnnouncementCell: UICollectionViewCell {
         return label
     }()
 
-    public var showError : ((String) -> Void)?
+    // Mark: override base func
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -73,14 +73,14 @@ class AnnouncementCell: UICollectionViewCell {
         contentStackView.addArrangedSubview(locationLabel)
         contentStackView.addArrangedSubview(createdDateLabel)
 
-        addSubview(imageView)
-        addSubview(contentStackView)
+        contentView.addSubview(imageView)
+        contentView.addSubview(contentStackView)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func layoutSubviews() {
         let imageSize = frame.width
 
@@ -100,6 +100,8 @@ class AnnouncementCell: UICollectionViewCell {
         imageView.image = nil
     }
 
+    // Mark: private func
+
     private func convertDate(dateString : String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
@@ -112,40 +114,19 @@ class AnnouncementCell: UICollectionViewCell {
         return dateFormatter.string(from: date)
     }
 
+    // Mark: internal func
+
     func setImage(data : Data) {
         imageView.image = UIImage(data: data)
     }
 
-    func setData(adv: Advertisement, imageDataUploaded: @escaping(Data) -> Void)
+    func setData(adv: Advertisement, loadImage: @escaping() -> Void)
     {
         if let imageData = adv.imageData {
             setImage(data: imageData)
         }
-        else
-        {
-            NetworkService().downloadImage(url: adv.imageURL, completion: {
-                result in
-                switch result {
-                case .success(let data):
-                    DispatchQueue.main.async {
-                        imageDataUploaded(data)
-                    }
-                    break
-                case .failure(let error):
-                    DispatchQueue.main.async {
-                        var message = ""
-                        if let error = error as? LocalizedError {
-                            message = error.errorDescription!
-                        }
-                        else {
-                            message = error.localizedDescription
-                        }
-
-                        self.showError?(message)
-                    }
-                    break
-                }
-            })
+        else {
+            loadImage()
         }
 
         titleLabel.text = adv.title

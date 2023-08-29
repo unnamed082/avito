@@ -64,35 +64,28 @@ class NetworkService {
         fetchData(url: url, completion: completion)
     }
 
-    func downloadAdvertisement(itemId: String, completion: @escaping(Result<Advertisement, Error>) -> Void) {
-        fetchData(url: "https://www.avito.st/s/interns-ios/details/\(itemId).json", completion: { result in
+    func downloadData<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void) {
+        fetchData(url: url) { result in
             switch result {
             case .success(let data):
-                if let advertisement = try? JSONDecoder().decode(Advertisement.self, from: data) {
-                    completion(.success(advertisement))
-                }
-                else {
+                if let resultData = try? JSONDecoder().decode(T.self, from: data) {
+                    completion(.success(resultData))
+                } else {
                     completion(.failure(ParseError.invalidData))
                 }
             case .failure(let error):
                 completion(.failure(error))
             }
-        })
+        }
+    }
+
+    func downloadAdvertisement(itemId: String, completion: @escaping(Result<Advertisement, Error>) -> Void) {
+        let url = "https://www.avito.st/s/interns-ios/details/\(itemId).json"
+        downloadData(url: url, completion: completion)
     }
 
     func downloadAdvertisements(completion: @escaping(Result<Advertisements, Error>) -> Void) {
-        fetchData(url: "https://www.avito.st/s/interns-ios/main-page.json", completion: { result in
-            switch result {
-            case .success(let data):
-                if let advertisements = try? JSONDecoder().decode(Advertisements.self, from: data) {
-                    completion(.success(advertisements))
-                }
-                else {
-                    completion(.failure(ParseError.invalidData))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        })
+        let url = "https://www.avito.st/s/interns-ios/main-page.json"
+        downloadData(url: url, completion: completion)
     }
 }

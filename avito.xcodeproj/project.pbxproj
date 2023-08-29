@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A87BA762A9E643F00B62F36 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A87BA752A9E643F00B62F36 /* BaseViewController.swift */; };
+		1A87BA7C2A9E7A8B00B62F36 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A87BA7B2A9E7A8B00B62F36 /* ColorExtension.swift */; };
 		1A963D132A97CE3A0061A599 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D122A97CE3A0061A599 /* AppDelegate.swift */; };
 		1A963D152A97CE3A0061A599 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D142A97CE3A0061A599 /* SceneDelegate.swift */; };
 		1A963D1C2A97CE3B0061A599 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A963D1B2A97CE3B0061A599 /* Assets.xcassets */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A87BA752A9E643F00B62F36 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		1A87BA7B2A9E7A8B00B62F36 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		1A963D0F2A97CE3A0061A599 /* avito.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = avito.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A963D122A97CE3A0061A599 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A963D142A97CE3A0061A599 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +47,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A87BA772A9E779F00B62F36 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1A963D2A2A97E5930061A599 /* AnnouncementCell.swift */,
+				1A963D312A9BB0CC0061A599 /* DetailedAdvInfoViewController.swift */,
+				1A87BA752A9E643F00B62F36 /* BaseViewController.swift */,
+				1A963D272A97E3B20061A599 /* AnnouncementViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1A87BA782A9E77B200B62F36 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1A963D2F2A9A21BC0061A599 /* AdvertisementModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1A87BA792A9E77BD00B62F36 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1A963D2C2A9A21650061A599 /* NetworkService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1A87BA7A2A9E7A5F00B62F36 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1A87BA7B2A9E7A8B00B62F36 /* ColorExtension.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		1A963D062A97CE3A0061A599 = {
 			isa = PBXGroup;
 			children = (
@@ -62,16 +101,15 @@
 		1A963D112A97CE3A0061A599 /* avito */ = {
 			isa = PBXGroup;
 			children = (
-				1A963D272A97E3B20061A599 /* AnnouncementViewController.swift */,
+				1A87BA7A2A9E7A5F00B62F36 /* Utilities */,
+				1A87BA792A9E77BD00B62F36 /* Services */,
+				1A87BA782A9E77B200B62F36 /* Models */,
+				1A87BA772A9E779F00B62F36 /* Views */,
 				1A963D122A97CE3A0061A599 /* AppDelegate.swift */,
 				1A963D142A97CE3A0061A599 /* SceneDelegate.swift */,
 				1A963D1B2A97CE3B0061A599 /* Assets.xcassets */,
 				1A963D1D2A97CE3B0061A599 /* LaunchScreen.storyboard */,
 				1A963D202A97CE3B0061A599 /* Info.plist */,
-				1A963D2A2A97E5930061A599 /* AnnouncementCell.swift */,
-				1A963D2C2A9A21650061A599 /* NetworkService.swift */,
-				1A963D2F2A9A21BC0061A599 /* AdvertisementModel.swift */,
-				1A963D312A9BB0CC0061A599 /* DetailedAdvInfoViewController.swift */,
 			);
 			path = avito;
 			sourceTree = "<group>";
@@ -149,8 +187,10 @@
 				1A963D302A9A21BC0061A599 /* AdvertisementModel.swift in Sources */,
 				1A963D2D2A9A21650061A599 /* NetworkService.swift in Sources */,
 				1A963D2B2A97E5930061A599 /* AnnouncementCell.swift in Sources */,
+				1A87BA7C2A9E7A8B00B62F36 /* ColorExtension.swift in Sources */,
 				1A963D132A97CE3A0061A599 /* AppDelegate.swift in Sources */,
 				1A963D322A9BB0CC0061A599 /* DetailedAdvInfoViewController.swift in Sources */,
+				1A87BA762A9E643F00B62F36 /* BaseViewController.swift in Sources */,
 				1A963D282A97E3B20061A599 /* AnnouncementViewController.swift in Sources */,
 				1A963D152A97CE3A0061A599 /* SceneDelegate.swift in Sources */,
 			);
