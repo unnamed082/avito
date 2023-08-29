@@ -15,6 +15,11 @@ final class AnnouncementViewController: BaseViewController {
     private var needUpdateData : Bool = true
     
     private var advertisements : [Advertisement] = []
+
+    private var refreshControl : UIRefreshControl = {
+        var refreshControl = UIRefreshControl()
+        return refreshControl
+    }()
     
     private var collectionView : UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
@@ -32,10 +37,13 @@ final class AnnouncementViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(AnnouncementCell.self, forCellWithReuseIdentifier: self.reuseIdentifier)
+        collectionView.refreshControl = refreshControl
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
@@ -71,6 +79,10 @@ final class AnnouncementViewController: BaseViewController {
             DispatchQueue.main.async {
                 self?.hideLoader()
                 self?.collectionView.reloadData()
+
+                if (self?.refreshControl.isRefreshing ?? false) {
+                    self?.refreshControl.endRefreshing()
+                }
             }
         }
     }
@@ -95,6 +107,10 @@ final class AnnouncementViewController: BaseViewController {
                 break
             }
         })
+    }
+
+    @objc func refresh(_ sender: AnyObject) {
+        updateData()
     }
 }
 

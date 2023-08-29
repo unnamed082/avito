@@ -10,7 +10,15 @@ import UIKit
 
 final class DetailedAdvInfoViewController : BaseViewController {
 
+    var advId : String = ""
     var advertisement : Advertisement? = nil
+
+    var isFirstLoad : Bool = true
+
+    private var refreshControl : UIRefreshControl = {
+        var refreshControl = UIRefreshControl()
+        return refreshControl
+    }()
 
     private var scrollView : UIScrollView = {
         var scrollView = UIScrollView()
@@ -117,6 +125,8 @@ final class DetailedAdvInfoViewController : BaseViewController {
         scrollView.addSubview(idLabel)
         scrollView.addSubview(createdDateLabel)
 
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        scrollView.refreshControl = refreshControl
         view.addSubview(scrollView)
 
         let imageSize = view.frame.width
@@ -202,6 +212,44 @@ final class DetailedAdvInfoViewController : BaseViewController {
         })
     }
 
+    private func loadAdv() {
+
+        if (isFirstLoad) {
+            isFirstLoad = false
+            showLoader()
+        }
+
+        loadAdv(itemId: advId, completion: { [weak self] advertisement in
+            self?.advertisement = advertisement
+
+            DispatchQueue.main.async {
+                self?.loadImage(url: advertisement.imageURL)
+
+                self?.titleLabel.text = advertisement.title
+
+                self?.priceLabel.text = advertisement.price
+
+                self?.locationLabel.text = advertisement.location
+
+                self?.emailLabel.text = advertisement.email
+
+                self?.phoneNumberLabel.text = advertisement.phoneNumber
+
+                self?.descriptionLabel.text = advertisement.description
+
+                self?.idLabel.text = "Объявление №\(advertisement.id)"
+
+                self?.createdDateLabel.text = advertisement.createdDate
+
+                self?.hideLoader()
+
+                if (self?.refreshControl.isRefreshing ?? false) {
+                    self?.refreshControl.endRefreshing()
+                }
+            }
+        })
+    }
+
     private func loadAdv(itemId: String, completion: @escaping(Advertisement) -> Void) {
         NetworkService().downloadAdvertisement(itemId: itemId, completion: { [weak self] result in
             switch result {
@@ -254,35 +302,15 @@ final class DetailedAdvInfoViewController : BaseViewController {
         }
     }
 
+    @objc func refresh(_ sender: AnyObject) {
+        loadAdv()
+    }
+
     // Mark: internal func
 
     func setData(advId: String) {
-        showLoader()
+        self.advId = advId
 
-        loadAdv(itemId: advId, completion: { [weak self] advertisement in
-            self?.advertisement = advertisement
-
-            DispatchQueue.main.async {
-                self?.loadImage(url: advertisement.imageURL)
-
-                self?.titleLabel.text = advertisement.title
-
-                self?.priceLabel.text = advertisement.price
-
-                self?.locationLabel.text = advertisement.location
-
-                self?.emailLabel.text = advertisement.email
-
-                self?.phoneNumberLabel.text = advertisement.phoneNumber
-
-                self?.descriptionLabel.text = advertisement.description
-
-                self?.idLabel.text = "Объявление №\(advertisement.id)"
-
-                self?.createdDateLabel.text = advertisement.createdDate
-
-                self?.hideLoader()
-            }
-        })
+        loadAdv()
     }
 }
