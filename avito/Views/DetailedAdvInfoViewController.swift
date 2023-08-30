@@ -144,39 +144,39 @@ final class DetailedAdvInfoViewController : BaseViewController {
 
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 15),
             titleLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: horPadding),
-            titleLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -horPadding),
+            view.rightAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: horPadding),
 
             priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             priceLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: horPadding),
-            priceLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -horPadding),
+            view.rightAnchor.constraint(equalTo: priceLabel.rightAnchor, constant: horPadding),
 
             locationLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 15),
             locationLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: horPadding),
-            locationLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -horPadding),
+            view.rightAnchor.constraint(equalTo: locationLabel.rightAnchor, constant: horPadding),
 
             emailLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 10),
             emailLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: horPadding),
-            emailLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -horPadding),
+            view.rightAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: horPadding),
 
             phoneNumberLabel.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 10),
             phoneNumberLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: horPadding),
-            phoneNumberLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -horPadding),
+            view.rightAnchor.constraint(equalTo: phoneNumberLabel.rightAnchor, constant: horPadding),
 
             descriptionTitleLabel.topAnchor.constraint(equalTo: phoneNumberLabel.bottomAnchor, constant: 10),
             descriptionTitleLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: horPadding),
-            descriptionTitleLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -horPadding),
+            view.rightAnchor.constraint(equalTo: descriptionTitleLabel.rightAnchor, constant: horPadding),
 
             descriptionLabel.topAnchor.constraint(equalTo: descriptionTitleLabel.bottomAnchor, constant: 3),
             descriptionLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: horPadding),
-            descriptionLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -horPadding),
+            view.rightAnchor.constraint(equalTo: descriptionLabel.rightAnchor, constant: horPadding),
 
             idLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
             idLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: horPadding),
-            idLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -horPadding),
+            view.rightAnchor.constraint(equalTo: idLabel.rightAnchor, constant: horPadding),
 
             createdDateLabel.topAnchor.constraint(equalTo: idLabel.bottomAnchor, constant: 5),
             createdDateLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: horPadding),
-            createdDateLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -horPadding),
+            view.rightAnchor.constraint(equalTo: createdDateLabel.rightAnchor, constant: horPadding)
         ])
 
         view.layoutIfNeeded()
