@@ -10,20 +10,12 @@ import UIKit
 
 class BaseViewController : UIViewController {
 
-    private var loaderViewBackgroundView : UIView = {
-        var view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 10
-        view.layer.zPosition = 10
-        view.isHidden = true
-        return view
-    }()
-
     private var loaderView : UIActivityIndicatorView = {
         var loaderView = UIActivityIndicatorView(style: .medium)
         loaderView.sizeToFit()
         loaderView.translatesAutoresizingMaskIntoConstraints = false
+        loaderView.layer.zPosition = 10
+        loaderView.isHidden = true
         return loaderView
     }()
 
@@ -33,32 +25,26 @@ class BaseViewController : UIViewController {
         super.viewDidLoad()
 
         navigationController?.view.backgroundColor = .white
-
-        loaderViewBackgroundView.addSubview(loaderView)
-        view.addSubview(loaderViewBackgroundView)
-
-        let loaderBgViewPadding: CGFloat = 10
+        view.addSubview(loaderView)
 
         NSLayoutConstraint.activate([
-            loaderViewBackgroundView.widthAnchor.constraint(equalToConstant: loaderView.frame.width + loaderBgViewPadding * 2),
-            loaderViewBackgroundView.heightAnchor.constraint(equalToConstant: loaderView.frame.height + loaderBgViewPadding * 2),
-            loaderViewBackgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loaderViewBackgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 
-            loaderView.centerXAnchor.constraint(equalTo: loaderViewBackgroundView.centerXAnchor),
-            loaderView.centerYAnchor.constraint(equalTo: loaderViewBackgroundView.centerYAnchor)
+            loaderView.widthAnchor.constraint(equalToConstant: loaderView.frame.width),
+            loaderView.heightAnchor.constraint(equalToConstant: loaderView.frame.height),
+            loaderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
 
     // Mark: internal func
 
     internal func showLoader() {
-        loaderViewBackgroundView.isHidden = false
+        loaderView.isHidden = false
         loaderView.startAnimating()
     }
 
     internal func hideLoader() {
-        loaderViewBackgroundView.isHidden = true
+        loaderView.isHidden = true
         loaderView.stopAnimating()
     }
 
