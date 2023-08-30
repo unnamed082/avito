@@ -13,7 +13,7 @@
 - Состояние загрузки
 ![Simulator Screenshot - iPhone 14 Pro - 2023-08-30 at 10 57 36](https://github.com/unnamed082/avito/assets/49235559/f72dae60-fc8c-43e8-b3e9-8714650e732d)
 - Отображение контента из JSON файла
-![Simulator Screenshot - iPhone 14 Pro - 2023-08-30 at 10 50 45](https://github.com/unnamed082/avito/assets/49235559/45e15ee2-d918-4697-8850-618770efe61e)
+![Simulator Screenshot - iPhone 14 Pro - 2023-08-30 at 11 58 00](https://github.com/unnamed082/avito/assets/49235559/da62873b-8048-4e40-b6fd-40c69a313628)
 ![Simulator Screenshot - iPhone 14 Pro - 2023-08-30 at 11 00 25](https://github.com/unnamed082/avito/assets/49235559/9e212537-550a-4ba3-ac72-2f75e4f1cd6b)
 
 
