@@ -12,15 +12,17 @@ struct Advertisements: Codable {
 }
 
 struct Advertisement: Codable {
-    let id : String
+    let id: String
     let title: String
     let price: String
     let location: String
     let imageURL: String
-    var imageData : Data?
+    var imageData: Data?
     let createdDate: String
 
-    let description, email, phoneNumber: String?
+    let description: String?
+    let email: String?
+    let phoneNumber: String?
     let address: String?
 
     enum CodingKeys: String, CodingKey {

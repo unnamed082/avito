@@ -12,16 +12,16 @@ final class AnnouncementViewController: BaseViewController {
     
     private let reuseIdentifier = "Cell"
     
-    private var needUpdateData : Bool = true
+    private var needUpdateData: Bool = true
     
-    private var advertisements : [Advertisement] = []
-
-    private var refreshControl : UIRefreshControl = {
+    private var advertisements: [Advertisement] = []
+    
+    private let refreshControl: UIRefreshControl = {
         var refreshControl = UIRefreshControl()
         return refreshControl
     }()
     
-    private var collectionView : UICollectionView = {
+    private let collectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.scrollDirection = .vertical
         collectionViewLayout.minimumLineSpacing = 10
@@ -36,8 +36,7 @@ final class AnnouncementViewController: BaseViewController {
     // Mark: override base func
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-
+        
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         
         collectionView.dataSource = self
@@ -46,12 +45,7 @@ final class AnnouncementViewController: BaseViewController {
         collectionView.refreshControl = refreshControl
         view.addSubview(collectionView)
         
-        NSLayoutConstraint.activate([
-            collectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,13 +53,24 @@ final class AnnouncementViewController: BaseViewController {
         
         if (needUpdateData) {
             needUpdateData = false
-
+            
             updateData()
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    override func setupContraints() {
+        super.setupContraints()
+        
+        NSLayoutConstraint.activate([
+            collectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
     // Mark: private func
@@ -79,7 +84,7 @@ final class AnnouncementViewController: BaseViewController {
             DispatchQueue.main.async {
                 self?.hideLoader()
                 self?.collectionView.reloadData()
-
+                
                 if (self?.refreshControl.isRefreshing ?? false) {
                     self?.refreshControl.endRefreshing()
                 }
@@ -95,26 +100,25 @@ final class AnnouncementViewController: BaseViewController {
             case .failure(let error):
                 DispatchQueue.main.async {
                     var message = ""
+                    
                     if let error = error as? LocalizedError {
                         message = error.errorDescription ?? ""
-                    }
-                    else {
+                    } else {
                         message = error.localizedDescription
                     }
                     
                     self?.showAlert(message: message)
                 }
-                break
             }
         })
     }
-
+    
     @objc func refresh(_ sender: AnyObject) {
         updateData()
     }
 }
 
-extension AnnouncementViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
+extension AnnouncementViewController: UICollectionViewDataSource
 {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -128,40 +132,39 @@ extension AnnouncementViewController : UICollectionViewDataSource, UICollectionV
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AnnouncementCell
         cell.tag = indexPath.row
-
+        
         let adv = advertisements[indexPath.row]
-
+        
         cell.setData(adv: adv, loadImage: {
-            NetworkService().downloadImage(url: adv.imageURL, completion: {
-                [weak self] result in
+            NetworkService().downloadImage(url: adv.imageURL, completion: { [weak self] result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let data):
                         self?.advertisements[indexPath.row].imageData = data
-
+                        
                         if (cell.tag == indexPath.row) {
                             cell.setImage(data: data)
                         }
-
-                        break
+                        
                     case .failure(let error):
                         var message = ""
+                        
                         if let error = error as? LocalizedError {
                             message = error.errorDescription ?? ""
-                        }
-                        else {
+                        } else {
                             message = error.localizedDescription
                         }
-
+                        
                         self?.showAlert(message: message)
-
-                        break
                     }
                 }
             })
         })
         return cell
     }
+}
+
+extension AnnouncementViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -169,6 +172,9 @@ extension AnnouncementViewController : UICollectionViewDataSource, UICollectionV
         detailedAdvInfoViewController.setData(advId: advertisements[indexPath.row].id)
         navigationController?.pushViewController(detailedAdvInfoViewController, animated: true)
     }
+}
+
+extension AnnouncementViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         

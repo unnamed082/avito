@@ -8,9 +8,8 @@
 import Foundation
 import UIKit
 
-extension UIColor
-{
-    public class var solitude : UIColor {
+extension UIColor {
+    final class var solitude: UIColor {
         return UIColor(red: 215/255, green: 222/255, blue: 230/255, alpha: 1)
     }
 }
