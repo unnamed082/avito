@@ -26,7 +26,7 @@ final class AnnouncementViewController: BaseViewController {
         collectionViewLayout.scrollDirection = .vertical
         collectionViewLayout.minimumLineSpacing = 10
         collectionViewLayout.minimumInteritemSpacing = 10
-        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false

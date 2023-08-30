@@ -19,14 +19,6 @@ final class AnnouncementCell: UICollectionViewCell {
         return imageView
     }()
 
-    private var contentStackView : UIStackView = {
-        var stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
-        return stackView
-    }()
-
     private var titleLabel : UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -68,13 +60,11 @@ final class AnnouncementCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        contentStackView.addArrangedSubview(titleLabel)
-        contentStackView.addArrangedSubview(priceLabel)
-        contentStackView.addArrangedSubview(locationLabel)
-        contentStackView.addArrangedSubview(createdDateLabel)
-
         contentView.addSubview(imageView)
-        contentView.addSubview(contentStackView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(priceLabel)
+        contentView.addSubview(locationLabel)
+        contentView.addSubview(createdDateLabel)
     }
 
     required init?(coder: NSCoder) {
@@ -83,16 +73,38 @@ final class AnnouncementCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         let imageSize = frame.width
+        let bottomPadding : CGFloat = 20
 
+        titleLabel.sizeToFit()
+        priceLabel.sizeToFit()
+        locationLabel.sizeToFit()
+        createdDateLabel.sizeToFit()
+
+        let itemsSummaryHeight = imageSize + titleLabel.frame.height + priceLabel.frame.height + locationLabel.frame.height + createdDateLabel.frame.height
+        let marginBetweenItems = (frame.height - itemsSummaryHeight - bottomPadding) / 4
+
+        // todo нужно поправить компановку элементов
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             imageView.widthAnchor.constraint(equalToConstant: imageSize),
             imageView.heightAnchor.constraint(equalToConstant: imageSize),
 
-            contentStackView.leftAnchor.constraint(equalTo: leftAnchor),
-            contentStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
-            contentStackView.rightAnchor.constraint(equalTo: rightAnchor),
-            contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: marginBetweenItems),
+            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+
+            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: marginBetweenItems),
+            priceLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            priceLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+
+            locationLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: marginBetweenItems),
+            locationLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            locationLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+
+            createdDateLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: marginBetweenItems),
+            createdDateLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            createdDateLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
     }
 
