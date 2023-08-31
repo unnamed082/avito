@@ -209,7 +209,7 @@ final class DetailedAdvInfoViewController: BaseViewController {
         
         idLabel.text = "Объявление №\(adv.id)"
         
-        createdDateLabel.text = adv.createdDate
+        createdDateLabel.text =  DateFormatterHelper.convertDate(date: adv.createdDate)
     }
     
     private func loadImage(url: String) {

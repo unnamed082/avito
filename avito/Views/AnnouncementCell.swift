@@ -117,18 +117,6 @@ final class AnnouncementCell: UICollectionViewCell {
         ])
     }
     
-    private func convertDate(dateString: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        let date = dateFormatter.date(from: dateString)!
-        
-        dateFormatter.dateFormat = "d MMM"
-        
-        return dateFormatter.string(from: date)
-    }
-    
     // Mark: internal func
     
     func setImage(data: Data) {
@@ -150,7 +138,7 @@ final class AnnouncementCell: UICollectionViewCell {
         locationLabel.text = adv.location
         locationLabel.isHidden = locationLabel.text?.isEmpty ?? true
         
-        createdDateLabel.text = convertDate(dateString: adv.createdDate)
+        createdDateLabel.text = DateFormatterHelper.convertDate(date: adv.createdDate)
         createdDateLabel.isHidden = createdDateLabel.text?.isEmpty ?? true
         
         setupConstraints()

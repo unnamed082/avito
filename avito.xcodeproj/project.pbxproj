@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A1C1F0D2AA0DC6800303038 /* DateFormatterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1C1F0C2AA0DC6800303038 /* DateFormatterHelper.swift */; };
 		1A87BA762A9E643F00B62F36 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A87BA752A9E643F00B62F36 /* BaseViewController.swift */; };
 		1A87BA7C2A9E7A8B00B62F36 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A87BA7B2A9E7A8B00B62F36 /* Palette.swift */; };
 		1A963D132A97CE3A0061A599 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A963D122A97CE3A0061A599 /* AppDelegate.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A1C1F0C2AA0DC6800303038 /* DateFormatterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterHelper.swift; sourceTree = "<group>"; };
 		1A87BA752A9E643F00B62F36 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		1A87BA7B2A9E7A8B00B62F36 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		1A963D0F2A97CE3A0061A599 /* avito.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = avito.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				1A87BA7B2A9E7A8B00B62F36 /* Palette.swift */,
+				1A1C1F0C2AA0DC6800303038 /* DateFormatterHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 				1A963D2D2A9A21650061A599 /* NetworkService.swift in Sources */,
 				1A963D2B2A97E5930061A599 /* AnnouncementCell.swift in Sources */,
 				1A87BA7C2A9E7A8B00B62F36 /* Palette.swift in Sources */,
+				1A1C1F0D2AA0DC6800303038 /* DateFormatterHelper.swift in Sources */,
 				1A963D132A97CE3A0061A599 /* AppDelegate.swift in Sources */,
 				1A963D322A9BB0CC0061A599 /* DetailedAdvInfoViewController.swift in Sources */,
 				1A87BA762A9E643F00B62F36 /* BaseViewController.swift in Sources */,
